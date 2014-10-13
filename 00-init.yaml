@@ -1,0 +1,61 @@
+---
+# > ansible-playbook -kK 00-init.yaml
+#
+- name: server initialization
+  gather_facts: no
+  hosts: colly
+  sudo: yes
+  remote_user: root
+  user: root
+
+  vars:
+  - ubuntu_release: trusty
+  - logwatch_email: colinta@colinta.com
+  - colinta_password: $6$FN28Lfn1$ihulatSJ.8l1j/LFf999kHQlWAvU0P1ys9fyQeiimMzFZaPRxOZxtEOdd5Fq0tTqa82uhXZujddMH.4la4ygM.
+
+  tasks:
+#### colinta
+  - name: Add colinta user
+    user:
+      name=colinta
+      password={{ colinta_password }}
+      comment="Colin T.A. Gray"
+      shell=/bin/bash
+
+  - name: Add authorized colinta key
+    authorized_key:
+      user=colinta
+      key="{{ lookup('file', '/Users/colinta/.ssh/id_rsa.pub') }}"
+
+  - name: Remove sudo group rights
+    lineinfile:
+      dest=/etc/sudoers
+      regexp="^%sudo"
+      state=absent
+
+  - name: Add colinta user to sudoers
+    lineinfile:
+      dest=/etc/sudoers
+      regexp="colinta ALL"
+      line="colinta ALL=(ALL) ALL"
+      state=present
+
+  - name: Disallow password authentication
+    notify: restart ssh
+    lineinfile:
+      dest=/etc/ssh/sshd_config
+      regexp="^PasswordAuthentication"
+      line="PasswordAuthentication no"
+      state=present
+
+  - name: Disallow root SSH access
+    notify: restart ssh
+    lineinfile:
+      dest=/etc/ssh/sshd_config
+      regexp="^PermitRootLogin"
+      line="PermitRootLogin no"
+      state=present
+
+  handlers:
+  - name: restart ssh
+    service: name=ssh state=restarted
