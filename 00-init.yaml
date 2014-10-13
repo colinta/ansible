@@ -10,7 +10,6 @@
 
   vars:
   - ubuntu_release: trusty
-  - logwatch_email: colinta@colinta.com
   - colinta_password: $6$FN28Lfn1$ihulatSJ.8l1j/LFf999kHQlWAvU0P1ys9fyQeiimMzFZaPRxOZxtEOdd5Fq0tTqa82uhXZujddMH.4la4ygM.
 
   tasks:
