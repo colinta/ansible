@@ -5,8 +5,8 @@
   gather_facts: no
   hosts: colly
   sudo: yes
-  remote_user: root
   user: root
+  remote_user: root
 
   vars:
   - ubuntu_release: trusty
@@ -15,25 +15,25 @@
   tasks:
 #### colinta
   - name: Add colinta user
-    user:
+    user: |
       name=colinta
       password={{ colinta_password }}
       comment="Colin T.A. Gray"
       shell=/bin/bash
 
   - name: Add authorized colinta key
-    authorized_key:
+    authorized_key: |
       user=colinta
       key="{{ lookup('file', '/Users/colinta/.ssh/id_rsa.pub') }}"
 
   - name: Remove sudo group rights
-    lineinfile:
+    lineinfile: |
       dest=/etc/sudoers
       regexp="^%sudo"
       state=absent
 
   - name: Add colinta user to sudoers
-    lineinfile:
+    lineinfile: |
       dest=/etc/sudoers
       regexp="colinta ALL"
       line="colinta ALL=(ALL) ALL"
@@ -41,7 +41,7 @@
 
   - name: Disallow password authentication
     notify: restart ssh
-    lineinfile:
+    lineinfile: |
       dest=/etc/ssh/sshd_config
       regexp="^PasswordAuthentication"
       line="PasswordAuthentication no"
@@ -49,7 +49,7 @@
 
   - name: Disallow root SSH access
     notify: restart ssh
-    lineinfile:
+    lineinfile: |
       dest=/etc/ssh/sshd_config
       regexp="^PermitRootLogin"
       line="PermitRootLogin no"
