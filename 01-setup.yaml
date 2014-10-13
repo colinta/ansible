@@ -42,20 +42,18 @@
       - tree
 
 ###### ufw
+  - name: UFW - Allow web ports
+    ufw: 'proto=tcp port={{ item }} rule=allow'
+    with_items:
+      - http
+      - https
+      - ssh
 
-  - name: Allow ssh through firewall
-    ufw: proto=tcp port=ssh rule=allow
+      # limiting the ssh port results in *ansible* getting blocked :-/
+  # - name: UFW - Limit ssh port
+  #   ufw: rule=limit port=ssh proto=tcp
 
-  - name: Setup ufw
-    ufw: rule=limit port=ssh proto=tcp
-
-  - name: Allow nginx firewall
-    ufw: proto=tcp port=http rule=allow
-
-  - name: Allow nginx ssl firewall
-    ufw: proto=tcp port=https rule=allow
-
-  - name: Enable ufw
+  - name: UFW - Enable
     command: ufw --force enable
 
 ###### logwatch, firewall, lock down root
