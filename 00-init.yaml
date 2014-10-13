@@ -35,8 +35,15 @@
   - name: Add colinta user to sudoers
     lineinfile: |
       dest=/etc/sudoers
-      regexp="colinta ALL"
+      regexp="^colinta ALL"
       line="colinta ALL=(ALL) ALL"
+      state=present
+
+  - name: Don't require sudo password
+    lineinfile: |
+      dest=/etc/sudoers
+      regexp="^colinta\b.*NOPASSWD:\s*ALL$"
+      line="colinta ALL=(ALL) NOPASSWD: ALL"
       state=present
 
   - name: Disallow password authentication
