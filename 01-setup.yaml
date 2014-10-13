@@ -19,10 +19,10 @@
     apt: upgrade=safe
 
   - name: Adjust APT update intervals
-    copy: src=config/apt_periodic dest=/etc/apt/apt.conf.d/10periodic
+    copy: src=files/apt_periodic dest=/etc/apt/apt.conf.d/10periodic
 
   - name: Adjust APT update intervals
-    copy: src=config/apt_periodic_50 dest=/etc/apt/apt.conf.d/50periodic
+    copy: src=files/apt_periodic_50 dest=/etc/apt/apt.conf.d/50periodic
 
 ###### APT packages
   - name: Install favorite packages
