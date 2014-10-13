@@ -57,10 +57,10 @@
     command: ufw --force enable
 
 ###### logwatch, firewall, lock down root
-  - name: Make logwatch mail $logwatch_email daily
+  - name: Make logwatch mail {{ logwatch_email }} daily
     lineinfile:
       dest=/etc/cron.daily/00logwatch
       regexp="^/usr/sbin/logwatch"
-      line="/usr/sbin/logwatch --output mail --mailto $logwatch_email --detail high"
+      line="/usr/sbin/logwatch --output mail --mailto {{ logwatch_email }} --detail high"
       state=present
       create=yes
