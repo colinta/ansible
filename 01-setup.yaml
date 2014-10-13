@@ -1,7 +1,7 @@
 ---
-# > ansible-playbook -kK 00-init.yaml
+# > ansible-playbook 01-setup.yaml
 #
-- name: server initialization
+- name: server setup
   gather_facts: no
   hosts: colly
   sudo: yes
@@ -47,7 +47,7 @@
     ufw: proto=tcp port=ssh rule=allow
 
   - name: Setup ufw
-  - ufw: rule=limit port=ssh proto=tcp
+    ufw: rule=limit port=ssh proto=tcp
 
   - name: Allow nginx firewall
     ufw: proto=tcp port=http rule=allow
