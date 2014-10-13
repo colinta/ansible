@@ -14,8 +14,6 @@
 ###### APT setup
   - name: Update APT package cache
     apt: update_cache=yes cache_valid_time=3600
-    register: apt_update_cache
-  - debug: var=apt_update_cache.stdout_lines
 
   - name: Upgrade APT to the lastest packages
     apt: upgrade=safe
