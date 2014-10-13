@@ -49,10 +49,6 @@
       - https
       - ssh
 
-  # limiting the ssh port results in *ansible* getting blocked :-/
-  # - name: UFW - Limit ssh port
-  #   ufw: rule=limit port=ssh proto=tcp
-
   - name: UFW - Enable
     command: ufw --force enable
 
