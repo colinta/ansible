@@ -11,6 +11,7 @@
   - logwatch_email: colinta@colinta.com
 
   tasks:
+
 ###### APT setup
   - name: Update APT package cache
     apt: update_cache=yes cache_valid_time=3600
@@ -31,6 +32,7 @@
       state=installed
     with_items:
       - unattended-upgrades
+      - build-essential
       - vim
       - fail2ban
       - logwatch
