@@ -1,9 +1,9 @@
 ---
-# > ansible-playbook 01-setup.yaml
+# > ansible-playbook 01-setup.yml
 #
 - name: server setup
   gather_facts: no
-  hosts: colly
+  hosts: all
   sudo: yes
 
   vars:

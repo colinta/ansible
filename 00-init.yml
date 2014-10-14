@@ -1,12 +1,10 @@
 ---
-# > ansible-playbook -kK 00-init.yaml
+# > ansible-playbook -u root -kK 00-init.yml
 #
 - name: server initialization
   gather_facts: no
-  hosts: colly
+  hosts: all
   sudo: yes
-  user: root
-  remote_user: root
 
   vars:
   - ubuntu_release: trusty

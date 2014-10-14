@@ -1,0 +1,17 @@
+---
+- name: nginx
+  hosts: all
+  sudo: yes
+
+  vars: []
+
+  tasks:
+  - name: configure nginx default site
+    copy: src=files/nginx-default dest=/etc/nginx/sites-available/default
+    sudo: yes
+    notify: restart nginx
+
+  handlers:
+  - name: restart nginx
+    sudo: yes
+    action: service name=nginx state=restarted enabled=yes
